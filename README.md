@@ -20,14 +20,12 @@ The purpose of this project is to create a web-app for an autonomous vehicle whe
 
 
 ## Project Description
-* The open dataset of California Housing Price was obtained from Kaggle. 
-* The project's primary goal was to create a housing price prediction system that can be transported to another Machine Learning system. 
-* The output should be the median housing price given other data about that district.
+* autonomous navigation for a vision based mobile robot
 
 
 ## Needs of this project
 
-- create a web-app that can be deployed to an autonomous vehicle.
+- create a web-app that can be deployed to an autonomous robotic vehicle.
 
 
 ## Getting Started
