@@ -1,9 +1,9 @@
 import time
 import RPi.GPIO as gpio
-print("Starting PWM Readings")
+
 
 def printPWM(PinNo:int):
-
+    print("Starting PWM readings")
     gpio.setup(PinNo,gpio.IN)
 
     #Some in-function Constants
@@ -14,7 +14,7 @@ def printPWM(PinNo:int):
     val0= 1
     val1= 1
     count=0
-    span=5
+    span=50
     cond =1
 
     while(cond):
@@ -27,7 +27,7 @@ def printPWM(PinNo:int):
             print('Starting Count:')
 
         val0 = val1
-        time.sleep(0.001)
+       # time.sleep(0.001)
 
     while (count<span):
 
@@ -46,7 +46,7 @@ def printPWM(PinNo:int):
             pass
 
         val0=val1
-        time.sleep(0.001)
+       # time.sleep(0.001)
 
     t0 /= span
     t1 /= span

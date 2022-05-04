@@ -1,30 +1,58 @@
 import motorMotion
 import readPWM
 import time
+import RPi.GPIO as gpio
+import wavePWM 
+import pigpio
 
-#Constants
-validEncVal= [14,15,23,24,8,7,20,21]
+## o
+pi = pigpio.pi()
+#Raspberry Pi Configurations
+gpio.setmode(gpio.BCM)
+gpio.setwarnings(False)
+
+gpioNo= [2,3,4,17,22,27,10,9,11,5,6,13]
+EncVals= [14,23,8,20]
+motorVals= ['a','b','c','d']
+pwmVals= [7,15,23,33]
+
+gpio.setup(gpioNo,gpio.OUT)
+
 
 print("Starting MainGPR:")
 while(True):
 
     command = input("Please Enter Command:")
 
-    if command == 'wpwm':
-        print("Enter new Duty Cycle and Frequency:")
-        dutyCycle= float(input())
-        freq= float(input())
-        print("Duty cycle and Frequency Updated")
+    if command == 'wpw':
+        print("Enter Motor for PWM:")
+        pinNo= input()
 
-    elif command == 'rpwm':
+        if pinNo in motorVals:
+            pinNo = pwmVals[motorVals.index(pinNo)]
+
+            print("Enter new Duty Cycle and Frequency:")
+            dutyCycle= float(input())
+            freq= float(input())
+            pwm= wavePWM.PWM(pi)
+            pwm.set_frequency(freq)
+            pwm.set_pulse_start_in_fraction(pinNo,0)
+            pwm.set_pulse_length_in_fraction(pinNo,dutyCycle)
+            pwm.update()
+            print("Duty cycle and Frequency Updated")
+        else:
+            print("Invalid Input")
+
+    elif command == 'rpw':
         print("Enter Encoder value:")
-        pinNo= int(input())
+        pinNo= input()
 
-        if pinNo in validEncVal:
+        if pinNo in motorVals:
+            pinNo = EncVals[motorVals.index(pinNo)]
             readPWM.printPWM(pinNo)
 
         else:
-            print("Not a valid Encoder value:")
+            print("Not a valid input")
 
     elif command == 'exit':
         motorMotion.move(' ')
